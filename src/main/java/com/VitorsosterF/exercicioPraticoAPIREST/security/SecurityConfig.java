@@ -33,8 +33,8 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/h2/**").permitAll()
                         .anyRequest().denyAll()
