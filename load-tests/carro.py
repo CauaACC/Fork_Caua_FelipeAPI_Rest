@@ -38,3 +38,4 @@ class CarroUser(HttpUser):
                 f"/api/carro/{self.carro_id}",
                 headers=self.headers
             )
+            
