@@ -5,7 +5,6 @@ class CaminhaoJoaoTest(HttpUser):
     wait_time = between(1, 2)
 
     def on_start(self):
-        # 🔐 1. GERAR API KEY
         response = self.client.post(
             "/admin/gerar-chave",
             json={
@@ -16,7 +15,6 @@ class CaminhaoJoaoTest(HttpUser):
         if response.status_code == 200:
             data = response.json()
 
-            # ⚠️ pode ser "apiKey", "key", "chave"... depende da API
             self.api_key = data.get("apiKey") or data.get("key") or data.get("chave")
 
             print("API KEY:", self.api_key)
@@ -34,7 +32,6 @@ class CaminhaoJoaoTest(HttpUser):
             "Content-Type": "application/json"
         }
 
-        # 📤 POST - criar caminhão
         response = self.client.post(
             "/api/caminhao",
             json={
@@ -49,7 +46,6 @@ class CaminhaoJoaoTest(HttpUser):
                 caminhao = response.json()
                 caminhao_id = caminhao.get("id")
 
-                # 📥 GET - buscar caminhão
                 if caminhao_id:
                     self.client.get(
                         f"/api/caminhao/{caminhao_id}",
